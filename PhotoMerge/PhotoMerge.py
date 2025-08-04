@@ -7,15 +7,14 @@ gi.require_version('GimpUi', '3.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gimp, GimpUi, GObject, Gtk, Gio
 
-import sys, os, getpass, subprocess
+import sys, os, subprocess
 DEBUG = 4
-tmp_base = r"C:\\Users\\"
-user_name = getpass.getuser()
-tmp_file_end = r"\\AppData\\Roaming\\GIMP\\3.0\\tmp\\photo_merge_tmp.png"
-tmp_file = ''.join([tmp_base, user_name, tmp_file_end])
-exe_loc = r"\\AppData\\Roaming\\GIMP\\3.0\\scripts\\do_photo_merge\\"
+user_appdata = os.environ.get('APPDATA')
+tmp_file_end = r"\\GIMP\\3.0\\tmp\\photo_merge_tmp.png"
+tmp_file = ''.join([user_appdata, tmp_file_end])
 exe_name = "do_photo_merge.exe"
-EXE_PATH = ''.join([tmp_base, user_name, exe_loc, exe_name])
+EXE_PATH = ''.join([user_appdata, r"\\GIMP\\3.0\\scripts\\do_photo_merge\\",
+                    exe_name])
 
 class PhotoMerge(Gimp.PlugIn):
     # Plugin properties
